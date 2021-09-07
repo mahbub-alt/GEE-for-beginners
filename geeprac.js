@@ -3,13 +3,24 @@
 
 
 var num = 5; //int
-
+print(typeof(num));
 var listOfNumbers = [0, 'x', 1, 2, 3, 5];
 
 var num = ee.Number(5);
 var eeString = ee.String('aString');
 var eeList = ee.List([1, 2, 3, 4, 5]);
 var sequence = ee.List.sequence(1, 5);
+var sequence = ee.List.sequence(1, 5, interval);
+for (var i =0;i<80; i++){
+  print(i)
+};
+
+var lst = []
+for (var i =0;i<100; i++){
+  lst.push(i)
+}
+print(lst)
+
 print(typeof(num));
 print(typeof(listOfNumbers));
 
