@@ -1,98 +1,92 @@
+// print('hi');
 
-// Intro to GEE interface
+// // var num = ee.Number(2)
+// // var lss = ee.List([2,4,6])
 
+// // var x = [2,4,5,6, 'st']
+// // print(typeof(num))
 
-var num = 5; //int
-print(typeof(num));
-var listOfNumbers = [0, 'x', 1, 2, 3, 5];
+// // print(lss.get(2))
+// var lst = []
+// for (var i =0;i<10;i++){
+//   lst.push(i)
+// }
+// print(lst)
 
-var num = ee.Number(5);
-var eeString = ee.String('aString');
-var eeList = ee.List([1, 2, 3, 4, 5]);
-var sequence = ee.List.sequence(1, 5);
-var sequence = ee.List.sequence(1, 5, interval);
-for (var i =0;i<80; i++){
-  print(i)
-};
+// var x =ee.List.sequence(0,100,2)
+// print(x)
 
-var lst = []
-for (var i =0;i<100; i++){
-  lst.push(i)
-}
-print(lst)
+// var ar = ee.Array([1,2,3])
 
-print(typeof(num));
-print(typeof(listOfNumbers));
+// print(ar.length())
 
-var vector = ee.Array([1, 2, 3]);       // 1-D array, variation on the 0-axis
-print(arr.length());
+print()
+//////////////////////////
 
-var sequence = ee.List.sequence(1, 10);
-print(sequence)
-
-print(sequence.get(5))
-
-print(sequence.slice(1,5))
 
 var object = {
   foo: 'bar',
   baz: 13,
   stuff: ['this', 'that', 'the other thing']
 };
-print('Dictionary:', object);
+print('Dictionary:', object['stuff'][0]);
 
-print('Print foo:', object['baz']);
+ var fun =function (para){
+  var sq = ee.Number(para).pow(2);
+  return sq
+}
+var lst = ee.List.sequence(2,10);
 
-print('Print stuff:', object.stuff[0]);
+// // print(lst.map(fun));
 
-//////////          ///////////////////////
-var sequence = ee.List.sequence(1, 10);
-print(sequence)
-var reflect = function(parameter) {
-  // Return the argument.
-  return ee.Number(parameter).pow(2);  //here say something why
-  //                                      we use ee.
-};
-print(reflect(2));
-print(sequence.map(reflect))  // so to itterate over more 
+// country data//
 
-
-     // end of first part//
-  // now before get into img processing lets see how to load country data and some other basic stuff
-                       Map.setCenter(lat,long,zoom)
-
-  var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
-  .filter(ee.Filter.eq('ADM0_NAME', 'Bangladesh'));  // country shp
+//   var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
+//   .filter(ee.Filter.eq('ADM0_NAME', 'Bangladesh'));  // country shp
   
   
-  var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
-  .filter(ee.Filter.eq('ADM1_NAME', 'Dhaka')); 
+//   var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
+//   .filter(ee.Filter.eq('ADM1_NAME', 'Dhaka')); 
   
-  var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
-  .filter(ee.Filter.eq('ADM2_NAME', 'Netrakona')); 
-  var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
-  .filter(ee.Filter.inList('ADM1_NAME', ['Dhaka','Khulna'])).union()
+//   var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
+//   .filter(ee.Filter.eq('ADM2_NAME', 'Netrakona')); 
+//   var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
+//   .filter(ee.Filter.inList('ADM1_NAME', ['Dhaka','Khulna'])).union()
   
-  var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
-  .filter(ee.Filter.inList('ADM1_NAME', ['Dhaka','Khulna'])).geometry().dissolve()
-
-var geoArea = geometry.area();
-print(geoArea.divide(1000000))
-
-// Talk about geometry and feature        so geometry has no property while feature has some property 
-// like a shapefile with a table
-
-print(f.get('area')); 
+//   var dataset = ee.FeatureCollection("FAO/GAUL/2015/level2")
+//   .filter(ee.Filter.inList('ADM1_NAME', ['Dhaka','Khulna'])).geometry().dissolve()
 
 
+
+// var roi=roi.filter(ee.Filter.eq('NAME_2','Tangail' ));
+// print(roi);
+
+
+var bd = world.filter(ee.Filter.inList('ADM1_NAME', ['Dhaka','Khulna']));
+// Map.addLayer(bd, {color: 'blue'}, "BD", false, 1);
+
+
+Map.setCenter(89.28160255159058,24.35513806963132, 6);
+
+// var ar = gm.area();
+// print(ar.divide(1000000));
+
+// var un = gm.intersection(gm2)
+// Map.addLayer(un)
+
+print(gm2.get('area'))
+
+            // using code
+            
+            
 var polygon = ee.Geometry.Polygon([
   [[-35, -10], [35, -10], [35, 10], [-35, 10], [-35, -10]]
 ]);
 
 // Create a Feature from the Geometry.
-var polyFeature = ee.Feature(polygon, {foo: 42, bar: 'tart'});
+var polyFeature = ee.Feature(polygon, {area: 42, union: 'x'});
 
-print( polyFeature)
+print( 'polyf',polyFeature)
 
 var feature = ee.Feature(ee.Geometry.Point([-122.22599, 37.17605]))
   .set('genus', 'Sequoia').set('species', 'sempervirens');
@@ -102,26 +96,8 @@ var species = feature.get('species');
 print(feature);
 print(species);
 
-// Buffer
-var buff = point.buffer(5000,100);
-// Map.addLayer(buff)
-
-var bounGeo = geometry.bounds();
-print(bounGeo)
-// number is the maximum error in meters.
-var interGeo = geometry.intersection(geometry2,100);
-Map.addLayer(interGeo)
 
 
-
-
-
-// Set a new property.
-feature = feature.set('presence', 1);
-
-print(feature);
-
-// Make a list of Features.
 var features = [
   ee.Feature(ee.Geometry.Rectangle(30.01, 59.80, 30.59, 60.15), {name: 'Voronoi'}),
   ee.Feature(ee.Geometry.Point(-73.96, 40.781), {name: 'Thiessen'}),
@@ -129,41 +105,14 @@ var features = [
 ];
 
 // Create a FeatureCollection from the list and print it.
-var fromList = ee.FeatureCollection(features);
-print(fromList);
-Map.addLayer(fromList)
-
-// now lets talk about feature collection
+var fromList = ee.FeatureCollection(features);      
 
 
 
-
-Map.setCenter(89,21,7)
-Map.addLayer(dataset,{color:'darkblue'})
-
-// Load a Landsat 8 image.
-var image = ee.Image('LANDSAT/LC08/C01/T1/LC08_044034_20140318');
-
-// Combine the mean and standard deviation reducers.
-var reducers = ee.Reducer.mean().combine({
-  reducer2: ee.Reducer.stdDev(),
-  sharedInputs: true
-});
-
-// Use the combined reducer to get the mean and SD of the image.
-var stats = image.reduceRegion({
-  reducer: reducers,
-  bestEffort: true,
-});
-
-// Display the dictionary of band means and SDs.
-print(stats);
-
-
-             ////////////        \\\\\\\\\\\\\\\\\
+.........................................end of a section........................
 
 var image = ee.Image('CGIAR/SRTM90_V4');
-Map.setCenter(89.516, 23.713,7); // Center on the Grand Canyon.
+Map.setCenter(89.516, 23.713,7); 
 
 
 Map.addLayer(image);
@@ -180,10 +129,9 @@ print('SRTM scale in meters', scale);
 var meanDict = image.reduceRegion({
   reducer: ee.Reducer.max(),
   geometry: geometry,
-  scale: 90
-  
-  
+  scale: 90  
 });
+
 print(meanDict)
 
 ploy = [polygon,geometry]
@@ -196,55 +144,201 @@ for (var i in poly){
   x.push(meanDict)
   print(meanDict);
 }
-    
-
-            //  Now let's talk about an image collection  //
-
-            var imgc = ee.ImageCollection('MODIS/006/MYD11A2')
-            .select('LST_Day_1km')
-            .filterDate('2018-12-30', '2020-4-27')
-            .mean()
-            .clip(roi) // so clip should be after mean() cz it can't applied on collection
-            .multiply(0.02).subtract(273.15)
-            ;
-            
-            var mask = imgc.gt(28);
-            var masked = imgc.updateMask(mask);
-            
-            Map.addLayer(imgc, {min: 24, max: 32, palette: ['blue', 'green', 'red']}, 'LST');
-            Map.addLayer(masked,{min: 28, max: 34, palette: ['blue', 'green', 'red']}, 'LST_masked');
-            
-            print(masked);
-            
-            Export.image.toDrive({
-              image: masked,
-              description: 'imagenewwwwww',
-              scale: 1000,
-              region: roi
-            });
+         .....................new section......................
 
 
 
+var imgc = ee.ImageCollection('MODIS/006/MYD11A2')
+.select('LST_Day_1km')
+.filterDate('2020-01-1','2020-12-30')
+.mean()
+.clip(roi)
+.multiply(.02).subtract(273.15);
+
+var mask = imgc.gt(30);
+
+
+var masked = imgc.updateMask(mask);
+
+Map.addLayer(imgc, {min:25,max:35,palette:['blue', 'green', 'red']}, 'LST');
+Map.addLayer(masked,{min: 30, max: 34,
+palette: ['blue', 'green', 'red']}, 'LST_masked');
+
+
+ Export.image.toDrive({image:imgc
+ , description:'demmm'
+ ,  region:roi
+ , scale:1000
+ })
+ 
+
+         
+         
+          '''''''''''''''''''''''  landsat-8 collection..........................
+//////// so far we've talked about single image, now we are gonna talk about img collection
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
+.filterBounds(point)
+.filterDate('2019-01-01', '2019-12-30')
+.select('B[2-5]')
+// .filterMetadata("CLOUD_COVER", "less_than", 5)
+// .sort('CLOUD_COVER')
+// .first()
+;
+print(l8.size())
+var visParams = {bands: ['B4', 'B3', 'B2'], max: 0.3};
+Map.addLayer(l8, visParams, 'true-color composite');
+
+// // var visfalse = {bands: ['B5', 'B4', 'B3'], max: 0.3};
+
+
+// var median = l8.median();
+
+// // Display the median composite.
+// // Map.addLayer(median, visParams, 'median');
+
+
+// // ////////////////// masking ////////////
+
+// var hansenImage = ee.Image('UMD/hansen/global_forest_change_2015');
+
+// Select the land/water mask.
+var datamask = hansenImage.select('datamask');
+
+// Create a binary mask.
+var mask = datamask.eq(1);
+Map.addLayer(mask,{},  'masked');  //just showing land
+// Update the composite mask with the water mask.
+var maskedComposite = median.updateMask(mask);
+Map.addLayer(maskedComposite, visParams, 'updated with median masked'); // excluding all water
+// print('mc',maskedComposite)
+// ///////////////   mosaic applies on collection of images ///////////
+
+var water = mask.not();
+
+// Mask water with itself to mask all the zeros (non-water).
+water = water.updateMask(water);
+
+// Make an image collection of visualization images.
+var mosaic = ee.ImageCollection([
+  median.visualize(visParams),
+  water.visualize({palette: '000044'}),
+]).mosaic()
+// ;
+
+// // Display the mosaic.
+Map.addLayer(mosaic, {}, 'custom mosaic');
+
+print(mosaic)  // so mosaic is displaying both images but result
+//                  is only for water layer or the last layer
+
+
+             ////////////        \\\\\\\\\\\\\\\\\
+
+
+
+// Import the Landsat 8 TOA image collection.
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA');
+
+// Get the least cloudy image in 2015.
+var image = ee.Image(
+  l8.filterBounds(roi)
+    .filterDate('2015-01-01', '2015-12-31')
+    .sort('CLOUD_COVER')
+    .first()
+);
+// Compute the Normalized Difference Vegetation Index (NDVI).
+var nir = image.select('B5');
+var red = image.select('B4');
+var ndvi = nir.subtract(red).divide(nir.add(red)).rename('NDVI');
+
+// Display the result.
+Map.centerObject(image, 7);
+var ndviParams = {min: -.5, max: .7, palette: ['blue', 'white', 'green']};
+Map.addLayer(ndvi, ndviParams, 'NDVI image');
+
+
+          //second
+          
+var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+
+          // 3rd
+          
+// Compute the EVI using an expression.
+
+var evi = image.expression(
+    '2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))', {
+      'NIR': image.select('B5'),
+      'RED': image.select('B4'),
+      'BLUE': image.select('B2')
+});
 
 
 
 
+var addNDVI = function(x) {
+  var ndvi = x.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return x.addBands(ndvi);
+};
 
+// Test the addNDVI function on a single image.
+var ndvi = addNDVI(image)
+// .select('NDVI')
+; // so now this ndvi image got one 
+//                                           additional band called NDVI
+print(ndvi)
 
-
-
-
-
-
-
-
-
-            var range = collection.reduceColumns(ee.Reducer.minMax(), ["system:time_start"])
-
-var landsat8_2019 = l8.filterBounds(geom)
-.filterDate("2018-12-01", "2019-12-31")
+// image.map(addNDVI);
+ //here you can do l8.map() but not image.map()
+ // cause map() goes with collection
+ 
+ // Import the Landsat 8 TOA image collection.
+ 
+          // Map()
+ 
+ 
+var l8 = ee.ImageCollection('LANDSAT/LC08/C01/T1_TOA')
 .filterMetadata("CLOUD_COVER", "less_than", 1)
-.select(bands)
-.mean();
+;
 
-for st2 .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',20)
+// Map a function over the Landsat 8 TOA collection to add an NDVI band.
+var withNDVI = l8.map(function(image) {
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+  return image.addBands(ndvi);
+});
+
+// Create a chart.
+var chart = ui.Chart.image.series({
+  imageCollection: withNDVI.select('NDVI'),
+  region: roi,
+  reducer: ee.Reducer.mean(),
+  scale: 30
+}).setOptions({title: 'NDVI over time'});
+
+// // Display the chart in the console.
+print(chart);
+ 
+ 
+// ...........................................                  ...........
+var cloudlessNDVI = l8.map(function(image) {
+  // Get a cloud score in [0, 100].
+  var cloud = ee.Algorithms.Landsat.simpleCloudScore(image).select('cloud');
+
+  // Create a mask of cloudy pixels from an arbitrary threshold.
+  var mask = cloud.lte(20);
+
+  // Compute NDVI.
+  var ndvi = image.normalizedDifference(['B5', 'B4']).rename('NDVI');
+
+  // Return the masked image with an NDVI band.
+  return image.addBands(ndvi).updateMask(mask);
+});
+
+var chart = ui.Chart.image.series({
+  imageCollection: cloudlessNDVI.select('NDVI'),
+  region: point.bounds(),
+  reducer: ee.Reducer.mean(),
+  scale: 30
+}).setOptions({title: 'NDVI over time'});
+
+// Display the chart in the console.
+print(chart);
