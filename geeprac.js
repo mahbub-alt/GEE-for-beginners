@@ -1,24 +1,24 @@
-// print('hi');
+print('hi');
 
-// // var num = ee.Number(2)
-// // var lss = ee.List([2,4,6])
+// var num = ee.Number(2)
+// var lss = ee.List([2,4,6])
 
-// // var x = [2,4,5,6, 'st']
-// // print(typeof(num))
+// var x = [2,4,5,6, 'st']
+// print(typeof(num))
 
-// // print(lss.get(2))
-// var lst = []
-// for (var i =0;i<10;i++){
-//   lst.push(i)
-// }
-// print(lst)
+// print(lss.get(2))
+var lst = []
+for (var i =0;i<10;i++){
+  lst.push(i)
+}
+print(lst)
 
-// var x =ee.List.sequence(0,100,2)
-// print(x)
+var x =ee.List.sequence(0,100,2)
+print(x)
 
-// var ar = ee.Array([1,2,3])
+var ar = ee.Array([1,2,3])
 
-// print(ar.length())
+print(ar.length())
 
 print()
 //////////////////////////
