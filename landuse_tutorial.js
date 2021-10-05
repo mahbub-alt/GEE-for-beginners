@@ -44,7 +44,7 @@ var ndbi = l8.select('ndbi');
 // var ndbi = ndbi.gt(-0.025).and(ndbi.lt(.015));
 // var ndbiVis = {min:.025, max:.015, palette: ['white', 'red']}
 
-var ndbiVis = {min: -0.376, max: .09, palette: ['black', 'black','red',]};
+var ndbiVis = {min: -1, max: 1, palette: ['black', 'black','red',]};
 
 
 
