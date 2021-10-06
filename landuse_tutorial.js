@@ -40,21 +40,30 @@ var l8 =ee.ImageCollection("LANDSAT/LC08/C01/T1_SR")
 .mean();
 print(l8)
 
-var ndbi = l8.select('ndbi');
-// var ndbi = ndbi.gt(-0.025).and(ndbi.lt(.015));
-// var ndbiVis = {min:.025, max:.015, palette: ['white', 'red']}
+// NDBI
 
-var ndbiVis = {min: -1, max: 1, palette: ['black', 'black','red',]};
+var ndbi = l8.select('ndbi');
+var ndbi = ndbi.gt(.1).and(ndbi.lt(.3));
+
+var ndbiVis = {min:.1, max:.3, palette: ['white', 'red']}
+
+// NDVI
+
+var NDVIMask = l8.select('NDVI').gt(0.275);
+var ndviVis = {min:.275, max:1, palette: ['black', 'green']}
 
 
 
 //Select bands and parameters for visualization
-var visPar = {bands:['B5','B6','B4'], min: 0, max: 0.35}; 
-var nat = {bands:['B4','B3','B2'], min: 0, max: 0.35}; 
+
+
+var nat = {bands:['B4','B3','B2'], min:.05 , max: 0.275}; 
 //Add layer to map
-Map.addLayer(l8.clip(region), visPar, 'Landsat Composite ',false);
-Map.addLayer(l8.clip(region), nat, 'natural ',false);
-Map.addLayer(ndbi.clip(region), ndbiVis, 'After masking ndvi ',false);
+
+Map.addLayer(l8.clip(region), nat, 'natural ');
+Map.addLayer(ndbi.clip(region), ndbiVis, 'After masking ndbi ');
+Map.addLayer(NDVIMask.clip(region), ndviVis, 'After masking NDVi ');
+
 
         // lets start training/////////////////////////
 var classes = water.merge(Wood_land).merge(Crop_land).merge(Bare_soil)
