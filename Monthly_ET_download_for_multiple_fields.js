@@ -36,6 +36,7 @@ var calculateDailyMean = function(image) {
   return dailyMeanFC;
 };
 
+
 // Apply the function to the images
 var dailyET = dataset.map(calculateDailyMean).flatten();
 
